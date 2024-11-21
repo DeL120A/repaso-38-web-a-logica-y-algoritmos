@@ -5,13 +5,6 @@ const form = document.querySelector('#create-todo-form');
 
 let todos = ['sacar al perro', 'hacer el super'];
 
-todo = {
-    label: 'sacar al perro',
-    id: Date.now()
-    // Math.random()
-    //crypto.randomUUID()
-}
-
 // function clickHandler(event) {
 function submitHandler(event) {
   event.preventDefault();
