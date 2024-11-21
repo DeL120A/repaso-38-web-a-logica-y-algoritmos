@@ -1,11 +1,18 @@
 const addButton = document.querySelector('#add-button');
 const todoInput = document.querySelector('#todo-input');
 const todosContainer = document.querySelector('#todos-container');
-const form = document.querySelector('#create-todo-form')
+const form = document.querySelector('#create-todo-form');
 
-const todos = [''];
+let todos = ['sacar al perro', 'hacer el super'];
 
-//function clickHandler(event) {
+todo = {
+    label: 'sacar al perro',
+    id: Date.now()
+    // Math.random()
+    //crypto.randomUUID()
+}
+
+// function clickHandler(event) {
 function submitHandler(event) {
   event.preventDefault();
   const todoText = todoInput.value;
@@ -22,17 +29,50 @@ function submitHandler(event) {
   todoInput.value = '';
 }
 
+function deleteHandler(event) {
+  const itemToDelete = event.target.parentNode;
+  console.log(itemToDelete);
+
+  const textToDelete = itemToDelete.querySelector('span').textContent;
+  console.log(textToDelete)
+
+
+  const newTodos = [];
+
+  // debugger
+
+  for(let i = 0; i < todos.length; i++) {
+    if(textToDelete !== todos[i]) {
+      newTodos.push(todos[i]);
+    }
+  }
+
+  todos = newTodos;
+  renderTodos()
+}
+
 function renderTodos() {
   todosContainer.innerHTML = '';
   
   for( let i = 0; i < todos.length; i++) {
     const todoItem = document.createElement('div');
-    todoItem.textContent = todos[i];
+
+    const todoContent = document.createElement('span');
+    todoContent.textContent = todos[i];
+
+    const button = document.createElement('button');
+    button.textContent = 'delete';
+
+    button.addEventListener('click', deleteHandler)
+
+    todoItem.appendChild(todoContent);
+    todoItem.appendChild(button);
+
     todosContainer.appendChild(todoItem);
   }
 }
 
-//addButton.addEventListener('click', clickHandler);
-form.addEventListener('submit', submitHandler)
+// addButton.addEventListener('click', clickHandler);
+form.addEventListener('submit', submitHandler);
 
 renderTodos();
